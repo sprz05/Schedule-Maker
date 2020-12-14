@@ -1,0 +1,120 @@
+body{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+
+
+div {
+  text-align: center;
+  border: 1px solid #d3d3d3;
+  width: 150px;
+    height: 30px;
+
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  background-color: white;
+  color: blue;
+}
+
+divWhite {
+  text-align: center;
+  border: 1px solid #d3d3d3;
+  width: 100px;
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  background-color: white;
+  color: #fff;
+}
+
+
+h1.trash {
+  background-color: red;
+  height: 100px;
+  width: 100px;
+}
+
+
+
+.div3 {
+  position: absolute;
+  text-align: center;
+  border: 1px solid #d3d3d3;
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  height: 20px ;
+  background-color: white;
+  width: 20px;
+  color: #fff;
+}
+
+
+.div {
+  text-align: center;
+  padding: 10px;
+  cursor: move;
+  background-color: white;
+  color: blue;
+}
+
+.divRed {
+  text-align: center;
+  padding: 10px;
+  cursor: move;
+  background-color: red;
+  color: #fff;
+}
+
+td{
+  border: 1px solid #d3d3d3;
+  padding: 10px;
+  width: 150px;
+    height: 30px;
+  text-align: center;
+}
+
+div:hover {
+  background-color: yellow;
+}
+
+
+.blue {
+  background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%);
+  color: white;
+}
+
+.red {
+  background: linear-gradient(87deg, #f5365c 0, #f56036 100%);
+  color: white;
+}
+
+.green {
+  background: linear-gradient(87deg, #2dce89 0, #2dcecc 100%);
+  color: white;
+}
+
+
+.blue2 {
+  background: linear-gradient(87deg, #11cdef 0, #1171ef 100%);
+  color: white;
+}
+
+
+
+button{
+    font-size: .875rem; 
+    border: none;
+    border-radius: 3px;
+    height: 40px;
+    width: 90px;
+
+    position: relative;
+
+    transition: all .15s ease;
+    letter-spacing: .025em;
+    text-transform: uppercase;
+
+    will-change: transform;
+}

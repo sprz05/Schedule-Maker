@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
+      <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+  </head>
+  <body>
+
+<header id="inputAssignments">    
+<h1 id="mulAsi">Input Your Assignments for the week:</h1>
+<h1 style="display:none" id="oneAsi">Input Your Assignment:</h1>
+
+    <input id="input" type="text" value="text">
+    <button class="blue" id="blue" onclick="addElement()" >Make it Purple</button> 
+    <button class="red" id="red" onclick="addElement()" >Make it Red</button> 
+    <button class="green" id="green" onclick="addElement()" >Make it Green</button> 
+    <button class="blue2" id="blue2" onclick="addElement()" >Make it Blue</button> 
+
+
+    <button style="display:none" id="blue2" onclick="addElement();" >input</button> 
+
+    <h1 height="30px"></h1>
+
+  <button id ="next" onclick="showSchedule()">Next</button>
+  <button id="closeAddAssignmentBtn" onclick="closeInputA();" style="display:none">Close</button>
+
+</header>
+
+<header id="schedule" style="display:none">
+
+  <button id="delBtn" style="display:none">Delete</button>
+
+<button id="addAssignmentBtn" onclick="showInputA();">Add Assignment</button>
+
+
+<header id="editHeader" style="display:none">
+  <p>Edit:</p>
+  <button id="editTxt">Edit Text</button>
+  <br>
+
+  <p>Edit color:</p>
+  <button id="redBg">Red</button>
+  <button id="blueBg">Blue</button>
+  <button id="whiteBg">White</button>
+  <button onclick="closeEditH()">Close</button>
+</header>
+
+    <p>Order your assignments, double click it to edit it</p>
+
+<table border="1">
+<tr>
+    <th width=100>Time</th>
+    <th width=100>Monday</th>
+    <th width=100>Tuesday</th>
+    <th width=100>Wednesday</th>
+    <th width=100>Thursday</th>
+    <th width=100>Friday</th>
+  </tr>
+    <tr>
+    <th width=100>12:00 PM</th>
+    <td width=100></td>
+    <td width=100></td>
+    <td width=100></td>
+    <td width=100></td>
+    <td width=100></td>
+  </tr>
+  <tr>
+    <th width=100>1:00 PM</th>
+    <td width=100></td>
+    <td width=100></td>
+    <td width=100></td>
+    <td width=100></td>
+    <td width=100></td>
+  </tr>
+</table>
+
+<h1 id="trash" class="trash">Delete</h1>
+
+</header>
+     <script src="script.js"></script>
+  </body>
+
+</html>
