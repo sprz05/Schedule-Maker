@@ -207,7 +207,7 @@ function updateVal(currentEle, value) {
 var clickedTH;
 
   $(function () {
-    $("th").dblclick(function (e) {
+    $(".th").dblclick(function (e) {
         clickedTH = event.target; 
         e.stopPropagation();
         var currentEle = $(clickedTH);
