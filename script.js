@@ -7,6 +7,10 @@ var closeAssignmentBtn = document.getElementById("closeAssignmentBtn");
 var schedule = document.getElementById("schedule");
 var closeAddAssignmentBtn = document.getElementById("closeAddAssignmentBtn");
 
+
+var currentlyDragged;
+ var currentClass;
+
 var blue = document.getElementById("blue");
 var blue2 = document.getElementById("blue2");
 
@@ -42,61 +46,96 @@ function showSchedule(){
   schedule.style.display = "block";
 }
 
+
+
+
+
 var elementCounter = 0;
-function addElement() { 
+function addElement() {
   var classN = event.target.id;
-
- text = document.getElementById("input").value;
-
+  text = document.getElementById("input").value;
   // create a new div element and give it a unique id
   var newDiv = document.createElement("div");
-
-  newDiv.id = 'temp'+elementCounter;
+  newDiv.id = 'temp' + elementCounter;
   newDiv.classList = "div";
   elementCounter++
-
-  if (classN == "blue"){
+  if (classN == "blue") {
     newDiv.classList = "blue"
-      } else if (classN == "red"){
-        newDiv.classList = "red"
-      } else if (classN == "green"){
-        newDiv.classList = "green"
-      } else if (classN == "blue2"){
-        newDiv.classList = "blue2"
-      }
-
+    newDiv.setAttribute("data-id", "blue"); //added attr with requierd color
+  } else if (classN == "red") {
+    newDiv.classList = "red"
+    newDiv.setAttribute("data-id", "red");
+  } else if (classN == "green") {
+    newDiv.classList = "green"
+    newDiv.setAttribute("data-id", "green");
+  } else if (classN == "blue2") {
+    newDiv.classList = "blue2"
+    newDiv.setAttribute("data-id", "blue2");
+  }
   // and give it some content
-  var newContent = document.createTextNode(text); 
-  
+  var newContent = document.createTextNode(text);
+
   // add the text node to the newly created div
-  newDiv.appendChild(newContent);  
+  newDiv.appendChild(newContent);
 
   // add the newly created element and its content into the DOM
-  var currentDiv = document.getElementById("div1"); 
-  document.body.insertBefore(newDiv, currentDiv); 
+  var currentDiv = document.getElementById("div1");
+  document.body.insertBefore(newDiv, currentDiv);
 
   $(function() {
-    
+
     var currentlyDragged;
- 
-    $("div").draggable({
-     drag: function (e) {
-         currentlyDragged = e.target.id
-         selectedText = event.target;
-         text = $(selectedText).html();     
-    }
+
+
+    $(function() {
+      $("div").dblclick(function(e) {
+        $("#editHeader").css("display", "block");
+        clickedTD = event.target;
+        $(clickedTD).addClass("selected");
+      });
     });
 
-$(function () {
-    $("div").dblclick(function (e) {
-        $("#editHeader").css("display","block");
-        clickedTD = event.target;
+
+    $("[id^='temp']").draggable({
+      drag: function(e) {
+        currentClass = $("#" + currentlyDragged).attr("class");
+        console.log(currentClass);
+
+        currentlyDragged = e.target.id;
+        console.log(currentlyDragged)
+
+        selectedText = event.target;
+        text = $(selectedText).html();
+      }
     });
-});
+
+
+    var slectedTD;
+    $("td").droppable({
+      drop: function(event, ui) {
+
+        selectedTD = event.target.id;
+        //use this to refer current td and `attr to get color from div`
+        $(this).addClass($("#" + currentlyDragged).attr("data-id"))
+        $(this).html(text);
+        $("div").draggable();
+        $("#" + currentlyDragged).remove();
+
+      }
+    });
 
   });
+
   document.getElementById("input").value = " ";
+
+
 }
+
+
+
+
+
+
 
 
 
@@ -108,9 +147,10 @@ var clickedTD;
 
 
 
-
+var div = document.getElementsByTagName("div");
 function closeEditH(){
   $("#editHeader").css("display","none");
+  $(div).removeClass("selected"); 
 }
 
 //edit text
@@ -129,36 +169,53 @@ function updateVal(currentEle, value) {
     $(".thVal").focus();
     $(".thVal").keyup(function (event) {
         if (event.keyCode == 13) {
-            $(currentEle).html($(".thVal").val().trim());
+            $(currentEle).html($(".thVal").val());
+            closeEditH();
         }
     });
 
     $(document).click(function () {
-            $(currentEle).html($(".thVal").val().trim());
+            $(currentEle).html($(".thVal").val());
+            closeEditH();
     });
 }
 
 //edit color
 
+var clickedDiv
+
   $(function () {
     $(redBg).click(function (e) {
-        $(clickedTD).css("background-color", "red");
+      $(clickedTD).removeClass();
+        $(clickedTD).addClass("red");
+        closeEditH();
     });
 });
 
 $(function () {
     $(blueBg).click(function (e) {
-        $(clickedTD).css("background-color", "blue");
+      $(clickedTD).removeClass();
+        $(clickedTD).addClass("blue2");
+        closeEditH();
+    });
+});
+
+
+$(function () {
+    $(purpleBg).click(function (e) {
+      $(clickedTD).removeClass();
+        $(clickedTD).addClass("blue");
+        closeEditH();
     });
 });
 
 $(function () {
-    $(whiteBg).click(function (e) {
-        $(clickedTD).css("background-color", "white");
-        $(clickedTD).css("color", "blue");
+    $(greenBg).click(function (e) {
+      $(clickedTD).removeClass();
+        $(clickedTD).addClass("green");
+        closeEditH();
     });
 });
-
 //delete
 
  $(function () {
@@ -172,13 +229,13 @@ function updateVal(currentEle, value) {
     $(".thVal").focus();
     $(".thVal").keyup(function (event) {
         if (event.keyCode == 13) {
-            $(currentEle).html($(".thVal").val().trim());
+            $(currentEle).html($(".thVal").val());
              $("#editHeader").css("display","none");
         }
     });
 
     $(document).click(function () {
-            $(currentEle).html($(".thVal").val().trim());
+            $(currentEle).html($(".thVal").val());
             $("#editHeader").css("display","none");
     });
 
@@ -194,7 +251,7 @@ function updateVal(currentEle, value) {
     
     var trash = document.getElementById('trash');
 
-    $(trash).droppable({
+    $("#trash").droppable({
       drop: function( event, ui ) {
       let removeEl = document.querySelector('#' + ui.draggable[0].getAttribute('id'))
       removeEl.remove();
@@ -222,11 +279,149 @@ function updateVal2(currentEle, value) {
     $(".thVal").focus();
     $(".thVal").keyup(function (event) {
         if (event.keyCode == 13) {
-            $(currentEle).html($(".thVal").val().trim());
+            $(currentEle).html($(".thVal").val());
         }
     });
 
     $(document).click(function () {
-            $(currentEle).html($(".thVal").val().trim());
+            $(currentEle).html($(".thVal").val());
     });
+}
+
+
+
+var takeScreenShot = function() {
+    html2canvas(document.getElementById("container"), {
+        onrendered: function (canvas) {
+            var tempcanvas=document.createElement('canvas');
+            tempcanvas.width=350;
+            tempcanvas.height=350;
+            var context=tempcanvas.getContext('2d');
+            context.drawImage(canvas,112,0,288,200,0,0,350,350);
+            var link=document.createElement("a");
+            link.href=tempcanvas.toDataURL('image/jpg');   //function blocks CORS
+            link.download = 'screenshot.jpg';
+            link.click();
+        }
+    });
+}
+
+//how can we save it in local storage??????
+var htmlContents = document.getElementById("output");
+
+function save(){
+localStorage.setItem('mySchedule', JSON.stringify(htmlContents ));
+}
+
+function showImgSchedule(){
+localStorage.getItem('mySchedule');
+console.log("showingSchedule")
+}
+//how can we save it in local storage??????
+
+
+
+
+
+  var td = document.getElementsByTagName('td');
+
+  $( "td" ).hover(
+  function() {
+    $( this ).append( $( "<a class='button'> Delete</a>" ) );
+
+    function dump() {
+      $(this).parent().html("").removeClass();
+    }
+$( "a" ).on( "click", dump );
+
+
+  }, function() {
+    $( this ).find( "a" ).last().remove();
+  }
+);
+
+
+var doubleClickedTD;
+
+$(function () {
+    $("td").dblclick(function (e) {
+      doubleClickedTD = event.target;
+        $("#editHeader").css("display","none");
+        $("#editTDHeader").css("display","block");       
+    });
+});
+
+
+function closeEditHTD(){
+  $("#editTDHeader").css("display","none");
+}
+
+//edit text
+
+
+  $(function () {
+    $(editTDTxt).click(function (e) {
+        e.stopPropagation();
+        var currentEle = $(doubleClickedTD);
+        var value = $(doubleClickedTD).html();
+        updateVal(currentEle, value);
+    });
+});
+
+function updateVal(currentEle, value) {
+    $(currentEle).html('<input class="thVal" type="text" value="' +  text  + '" />');
+    $(".thVal").focus();
+    $(".thVal").keyup(function (event) {
+        if (event.keyCode == 13) {
+            $(currentEle).html($(".thVal").val());
+            closeEditHTD();
+        }
+    });
+
+    $(document).click(function () {
+            $(currentEle).html($(".thVal").val());
+            closeEditHTD();
+    });
+}
+
+//edit color
+
+
+  $(function () {
+    $(redBgTD).click(function (e) {
+      $(doubleClickedTD).removeClass();
+        $(doubleClickedTD).addClass("redBg");
+        closeEditHTD();
+    });
+});
+
+$(function () {
+    $(blueBgTD).click(function (e) {
+      $(doubleClickedTD).removeClass();
+        $(doubleClickedTD).addClass("blue2Bg");
+        closeEditHTD();
+    });
+});
+
+
+$(function () {
+    $(purpleBgTD).click(function (e) {
+      $(doubleClickedTD).removeClass();
+        $(doubleClickedTD).addClass("blueBg");
+        closeEditHTD();
+    });
+});
+
+$(function () {
+    $(greenBgTD).click(function (e) {
+      $(doubleClickedTD).removeClass();
+        $(doubleClickedTD).addClass("greenBg");
+        closeEditHTD();
+    });
+});
+
+
+function hideAllExcpetScreenShoot(){ 
+  document.getElementById("saveSchedTxt").style.display ="block";
+  document.getElementById("screenshotTxt").style.display = "block";
 }
