@@ -143,9 +143,38 @@ function addElement() {
 
 }
 
+var clickedTH;
+
+  $(function () {
+    $(".th").dblclick(function (e) {
+        clickedTH = event.target; 
+        e.stopPropagation();
+        var currentEle = $(clickedTH);
+        var value = $(clickedTH).html();
+        updateVal2(currentEle, value);
+    });
+});
 
 
+var tdCounter = 0;
+function addTr() {
+  // create a new div element and give it a unique id
+  var newTr = 
+  $("<tr><th class='th' width=100>0:00 PM</th><td width='100'></td><td width='100'></td><td width='100'></td><td width='100'></td><td width='100'></td><td class='delTr'><button class='btnDelete'>Delete</button></td></tr>")
+  newTr.id = 'td' + tdCounter;
+  newTr.classList = "div";
+  tdCounter++
 
+  // add the newly created element and its content into the table
+  $("table").append(newTr)
+  $(".th").dblclick(function (e) {
+        clickedTH = event.target; 
+        e.stopPropagation();
+        var currentEle = $(clickedTH);
+        var value = $(clickedTH).html();
+        updateVal2(currentEle, value);
+    });
+}
 
 
 
@@ -265,25 +294,16 @@ function updateVal(currentEle, value) {
 
     $("#trash").droppable({
       drop: function( event, ui ) {
-      let removeEl = document.querySelector('#' + ui.draggable[0].getAttribute('id'))
-      removeEl.remove();
+      for (let i = 0; i < ui.draggable.length; i++) {
+        ui.draggable[i].remove();
+      }
       
       }
     });
   });
 
 
-var clickedTH;
 
-  $(function () {
-    $(".th").dblclick(function (e) {
-        clickedTH = event.target; 
-        e.stopPropagation();
-        var currentEle = $(clickedTH);
-        var value = $(clickedTH).html();
-        updateVal2(currentEle, value);
-    });
-});
 
 
 function updateVal2(currentEle, value) {
@@ -437,3 +457,19 @@ function hideAllExcpetScreenShoot(){
   document.getElementById("saveSchedTxt").style.display ="block";
   document.getElementById("screenshotTxt").style.display = "block";
 }
+
+
+
+
+$("#tbUser").on('click', '.btnDelete', function () {
+    $(this).closest('tr').remove();
+});
+
+
+  
+
+  $( "table" ).hover(
+  function show() {
+    document.getElementsByClassName("delTr").style.display = "block";
+  }
+);

@@ -68,11 +68,15 @@ td{
   text-align: center;
 }
 
+.delTr{
+  border: 0px;
+  
+  text-align: center;
+}
 
 
 .blue {
   text-align: center;
-  width: 150px;
   padding: 10px;
   cursor: move;
   z-index: 10;
