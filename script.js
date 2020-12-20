@@ -61,8 +61,8 @@ function addElement() {
   elementCounter++
   if (classN == "blue") {
     newDiv.classList = "blue"
-    newDiv.setAttribute("data-id", "blue"); //added attr with requierd color
-  } else if (classN == "red") {
+    newDiv.setAttribute("data-id", "blue"); 
+  } /*else if (classN == "red") {
     newDiv.classList = "red"
     newDiv.setAttribute("data-id", "red");
   } else if (classN == "green") {
@@ -71,7 +71,7 @@ function addElement() {
   } else if (classN == "blue2") {
     newDiv.classList = "blue2"
     newDiv.setAttribute("data-id", "blue2");
-  }
+  }*/
   // and give it some content
   var newContent = document.createTextNode(text);
 
@@ -86,7 +86,7 @@ function addElement() {
 
     var currentlyDragged;
 
-
+/*
     $(function() {
       $("div").dblclick(function(e) {
         $("#editHeader").css("display", "block");
@@ -94,7 +94,7 @@ function addElement() {
         $(clickedTD).addClass("selected");
       });
     });
-
+*/
 
     $("[id^='temp']").draggable({
       drag: function(e) {
@@ -111,16 +111,28 @@ function addElement() {
 
 
     var slectedTD;
+    var currentlyDraggedNewDiv;
     $("td").droppable({
       drop: function(event, ui) {
-
         selectedTD = event.target.id;
-        //use this to refer current td and `attr to get color from div`
-        $(this).addClass($("#" + currentlyDragged).attr("data-id"))
-        $(this).html(text);
-        $("div").draggable();
+        $(this).removeClass();
+        var newDiv = $("<div>"+ text +"</div>");
+        $(newDiv).addClass($("#" + currentlyDragged).attr("data-id"));
+        $( this ).append(newDiv);
+ 
+        console.log(currentlyDragged)
+        $("div").draggable({
+        drag: function(e) {
+        //add text id
+        currentClass = $(currentlyDraggedNewDiv).attr("class");
+        console.log(currentClass);
+        currentlyDraggedNewDiv = e.target;
+        text = $(currentlyDraggedNewDiv).html();
+        console.log(currentlyDraggedNewDiv);
+      }
+    }); 
         $("#" + currentlyDragged).remove();
-
+        $(currentlyDraggedNewDiv).remove();
       }
     });
 
@@ -323,7 +335,7 @@ console.log("showingSchedule")
 
 
 
-  var td = document.getElementsByTagName('td');
+ /* var td = document.getElementsByTagName('td');
 
   $( "td" ).hover(
   function() {
@@ -338,7 +350,7 @@ $( "a" ).on( "click", dump );
   }, function() {
     $( this ).find( "a" ).last().remove();
   }
-);
+);*/
 
 
 var doubleClickedTD;

@@ -18,16 +18,7 @@ h1, body{
 }
 
 div {
-  text-align: center;
-  border: 1px solid #d3d3d3;
-  width: 150px;
-    height: 30px;
-
-  padding: 10px;
   cursor: move;
-  z-index: 10;
-  background-color: white;
-  color: blue;
 }
 
 divWhite {
@@ -53,27 +44,11 @@ svg.trash {
 }
 
 
-
-.div3 {
-  position: absolute;
-  text-align: center;
-  border: 1px solid #d3d3d3;
-  padding: 10px;
-  cursor: move;
-  z-index: 10;
-  height: 20px ;
-  background-color: white;
-  width: 20px;
-  color: #fff;
-}
-
-
 .div {
   text-align: center;
   padding: 10px;
   cursor: move;
   background-color: white;
-  color: blue;
 }
 
 .divRed {
@@ -96,13 +71,8 @@ td{
 
 
 .blue {
-  background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%);
-  color: white;
   text-align: center;
-  border: 1px solid #d3d3d3;
   width: 150px;
-  height: 30px;
-  background-color: rgb(0, 0, 225);
   padding: 10px;
   cursor: move;
   z-index: 10;
