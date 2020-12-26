@@ -17,10 +17,6 @@
 
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="localStorage.js"></script>
-
-
-
 
   <script src= 
 "https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"> 
@@ -31,15 +27,16 @@
 
 
 <header id="CheckSnap" style="display:none;">
-  <h1>Are you sure you want to take a screenshot?</h1>
-  <button onclick="takeshot(); showSnap();">Yes, take a screenshot</button>
-  <button onclick="goBackToMain();">No, go back</button>
+  <h1>Are you sure you're done?</h1>
+  <button onclick="takeshot(); showSnap();" style="width: 200px;">Save schedule with screenshot</button>
+  <a href="index.html"><button style="width: 200px;">Save Schedule as website</button></a>
+  <button onclick="goBackToMain();" style="width: 200px;">No, go back</button>
 </header>
 
-<header id="screenShotHeader">
- <h1 style="display:none;" id="screenshotTxt">Screenshot:</h1> 
- <p style="display:none;">saveSchedTxt">Right Click to save your schedule:</p>
- <header id="output"></header> 
+<header id="screenShotHeader" style="display:none;">
+ <h1 id="screenshotTxt">Screenshot:</h1> 
+ <p id="saveSchedTxt">It might take a while for your screenshoot to be displayed. When it's ready, right click to save your schedule:</p>
+ <header id="output" height:></header> 
 </header>
 
   <script type="text/javascript"> 
@@ -73,10 +70,6 @@
 
     <input id="input" type="text" value="text">
     <button class="blue" id="blue" onclick="addElement()" >Add Assignment</button> 
-    <!--- <button class="red" id="red" onclick="addElement()" >Make it Red</button> 
-    <button class="green" id="green" onclick="addElement()" >Make it Green</button> 
-    <button class="blue2" id="blue2" onclick="addElement()" >Make it Blue</button> --->
-
 
     <button style="display:none" id="blue2" onclick="addElement();" >input</button> 
 
@@ -92,11 +85,11 @@
 <header id="editConsole">
   <button  id="delBtn" style="display:none">Delete</button>
   <button class="column" style="width:100px; height: 100px; background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%);" id="addAssignmentBtn" onclick="showInputA();">Add Assignment</button>
-<button class="column" style="width:100px; height: 100px; background: linear-gradient(87deg, #2dce89 0, #2dcecc 100%);" onclick="set()">Done</button>
+<button class="column" style="width:100px; height: 100px; background: linear-gradient(87deg, #2dce89 0, #2dcecc 100%);" onclick="set(); checkSnap()">Done</button>
 </header>
 
 
-<body style="height:50px;"></body>
+<body style="height:100px;"></body>
 
 <center>
 <header id="editHeader" style="display:none">
@@ -129,8 +122,6 @@
     <p>Order your assignments, double click it to edit it</p>
 
 </body> 
-
-<button onclick="set()">Set</button>
 
 <header id="photo"> 
 
@@ -209,11 +200,13 @@
   </tr>
 </table>
 
+</header>
+
 <button onclick="addTr()">Add row</button>
 
-</header>
 
 </header>
+
 
      <script src="script.js"></script>
 

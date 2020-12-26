@@ -412,9 +412,10 @@ $(function () {
 });
 
 
+var deleteBtns = document.getElementsByClassName("delTr");
+
 function showSnap(){ 
-  document.getElementById("saveSchedTxt").style.display ="block";
-  document.getElementById("screenshotTxt").style.display = "block";
+  document.getElementById("screenShotHeader").style.display ="block";
 }
 
 
@@ -427,27 +428,23 @@ $("#tbUser").on('click', '.btnDelete', function () {
 
 
   function checkSnap(){
+    $(deleteBtns).removeClass();
+    $(deleteBtns).addClass("hideDelBtns");
     document.getElementById("editConsole").style.display = "none";
     document.getElementById("CheckSnap").style.display = "block";
   }
 
-  function goBackToMain(){
+  function goBackToMain(){ screenShotHeader
     document.getElementById("editConsole").style.display = "block";
     document.getElementById("CheckSnap").style.display = "none";
-  }
-
-  function textInput(){
-   var clickedTD = event.target.innerHTML;
-    alert(clickedTD);
+    document.getElementById("screenShotHeader").style.display = "none";
   }
 
    
 
 
 function set(){
- localStorage.setItem('cell1Store', document.getElementById("cell1").innerHTML);
  localStorage.setItem('Table', document.getElementById("photo").innerHTML);
- getAndSet();
 }
 
 

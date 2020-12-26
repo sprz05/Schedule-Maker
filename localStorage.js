@@ -1,5 +1,5 @@
 window.addEventListener('load', (event) => {
-  getAndSet()
+  getAndSet();
 });
 
 function getAndSet(){
@@ -7,6 +7,8 @@ function getAndSet(){
   console.log(table);
 
   document.getElementById("tableInIndex").innerHTML = table;
+
+
 }
 
 
