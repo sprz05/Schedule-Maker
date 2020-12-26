@@ -17,7 +17,7 @@
 
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<script src="localStorage.js"></script>
 
 
 
@@ -28,6 +28,40 @@
 
 
   </head>
+
+
+<header id="CheckSnap" style="display:none;">
+  <h1>Are you sure you want to take a screenshot?</h1>
+  <button onclick="takeshot(); showSnap();">Yes, take a screenshot</button>
+  <button onclick="goBackToMain();">No, go back</button>
+</header>
+
+<header id="screenShotHeader">
+ <h1 style="display:none;" id="screenshotTxt">Screenshot:</h1> 
+ <p style="display:none;">saveSchedTxt">Right Click to save your schedule:</p>
+ <header id="output"></header> 
+</header>
+
+  <script type="text/javascript"> 
+    // Define the function 
+    // to screenshot the div 
+    function takeshot() { 
+      let header = document.getElementById('photo'); 
+
+      // Use the html2canvas 
+      // function to take a screenshot 
+      // and append it 
+      // to the output div 
+      html2canvas(header).then( 
+        function (canvas) { 
+          document 
+          .getElementById('output') 
+          .appendChild(canvas); 
+        }) 
+    } 
+  </script> 
+
+
   <body style="font-family: 'Roboto', sans-serif;">
 
 
@@ -36,7 +70,6 @@
 <header id="inputAssignments">    
 <h1 id="mulAsi">Input Your Assignments for the week:</h1>
 <h1 style="display:none" id="oneAsi">Input Your Assignment:</h1>
-
 
     <input id="input" type="text" value="text">
     <button class="blue" id="blue" onclick="addElement()" >Add Assignment</button> 
@@ -50,23 +83,17 @@
     <h1 height="30px"></h1>
 
   <button id ="next" onclick="showSchedule()">Next</button>
-
   <button id="closeAddAssignmentBtn" onclick="closeInputA();" style="display:none">Close</button>
-
 </header>
 
 <header id="schedule" style="display:none">
 
 
-
-<body id="editConsole">
-
+<header id="editConsole">
   <button  id="delBtn" style="display:none">Delete</button>
-
-<button class="column" style="width:100px; height: 100px; background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%);" id="addAssignmentBtn" onclick="showInputA();">Add Assignment</button>
-
-
-<button class="column" style="width:100px; height: 100px; background: linear-gradient(87deg, #2dce89 0, #2dcecc 100%);" onclick="takeshot(); hideAllExcpetScreenShoot();">Snapshot</button>
+  <button class="column" style="width:100px; height: 100px; background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%);" id="addAssignmentBtn" onclick="showInputA();">Add Assignment</button>
+<button class="column" style="width:100px; height: 100px; background: linear-gradient(87deg, #2dce89 0, #2dcecc 100%);" onclick="set()">Done</button>
+</header>
 
 
 <body style="height:50px;"></body>
@@ -81,10 +108,9 @@
   <button class="blue2" id="blueBg">Blue</button>
   <button class="green" id="greenBg">Green</button>
   <button class="blue" id="purpleBg">Purple</button> 
-  <button onclick="closeEditH()">Close</button>
+  <button onclick="setStorage()">Close</button>
 </header>
 </center>
-
 
 <center>
 <header id="editTDHeader" style="display:none">
@@ -104,10 +130,10 @@
 
 </body> 
 
-
+<button onclick="set()">Set</button>
 
 <header id="photo"> 
-<body>   
+
 
 <table border="1" style="border-color: grey;" id="tbUser">
 <tr>
@@ -120,7 +146,7 @@
   </tr>
     <tr>
     <th class="th" width=100>12:00 PM</th>
-    <td width=100 id="cell1"></td>
+    <td width=100 id="cell1" onclick="textInput();" value="cool"></td>
     <td width=100></td>
     <td width=100></td>
     <td width=100></td>
@@ -187,47 +213,20 @@
 
 </header>
 
-
+</header>
 
      <script src="script.js"></script>
 
-</html>
+</header>
 
 
-<header id="screenShotHeader">
-
-
- <h1 style="display:none;" id="screenshotTxt">Screenshot:</h1> 
- <p style="display:none;" id="saveSchedTxt">Right Click to save your schedule:</p>
-  <header id="output"></header> 
-
-  <script type="text/javascript"> 
-
-    // Define the function 
-    // to screenshot the div 
-    function takeshot() { 
-      let header = document.getElementById('photo'); 
-
-      // Use the html2canvas 
-      // function to take a screenshot 
-      // and append it 
-      // to the output div 
-      html2canvas(header).then( 
-        function (canvas) { 
-          document 
-          .getElementById('output') 
-          .appendChild(canvas); 
-        }) 
-    } 
-
-  </script> 
-
-  <p id="trash" style="width:100px; height:100px">
+<p id="trash" style="width:100px; height:100px">
 <svg id="trash" xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi red bi-trash" viewBox="0 0 16 16">
   <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
   <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
 </svg>
 </p>
 
-</header>
+
+
 

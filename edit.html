@@ -20,20 +20,88 @@
 </head>
 <body>
 
+	<body id="container">    
+
+<header id="inputAssignments" style="display:none">    
+<h1 id="mulAsi">Input Your Assignments for the week:</h1>
+<h1 style="display:none" id="oneAsi">Input Your Assignment:</h1>
+
+    <input id="input" type="text" value="text">
+    <button class="blue" id="blue" onclick="addElement()" >Add Assignment</button> 
+    <!--- <button class="red" id="red" onclick="addElement()" >Make it Red</button> 
+    <button class="green" id="green" onclick="addElement()" >Make it Green</button> 
+    <button class="blue2" id="blue2" onclick="addElement()" >Make it Blue</button> --->
+
+
+    <button style="display:none" id="blue2" onclick="addElement();" >input</button> 
+
+    <h1 height="30px"></h1>
+
+  <button id ="next" onclick="showSchedule()">Next</button>
+  <button id="closeAddAssignmentBtn" onclick="closeInputA();" style="display:none">Close</button>
+</header>
+
+<header id="schedule">
+
+
+<header id="editConsole">
+  <button  id="delBtn" style="display:none">Delete</button>
+  <button class="column" style="width:100px; height: 100px; background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%);" id="addAssignmentBtn" onclick="showInputA();">Add Assignment</button>
+<button class="column" style="width:100px; height: 100px; background: linear-gradient(87deg, #2dce89 0, #2dcecc 100%);" onclick="set()">Done</button>
+</header>
+
+
+<body style="height:50px;"></body>
+
+<center>
+<header id="editHeader" style="display:none">
+  <p>Edit:</p>
+  <button id="editTxt">Edit Text</button>
+  <br>
+  <p>Edit color:</p>
+  <button class="red" id="redBg">Red</button>
+  <button class="blue2" id="blueBg">Blue</button>
+  <button class="green" id="greenBg">Green</button>
+  <button class="blue" id="purpleBg">Purple</button> 
+  <button onclick="setStorage()">Close</button>
+</header>
+</center>
+
+<center>
+<header id="editTDHeader" style="display:none">
+  <p>Edit:</p>
+  <button id="editTDTxt">Edit Text</button>
+  <br>
+  <p>Edit color:</p>
+  <button class="red" id="redBgTD">Red</button>
+  <button class="blue2" id="blueBgTD">Blue</button>
+  <button class="green" id="greenBgTD">Green</button>
+  <button class="blue" id="purpleBgTD">Purple</button> 
+  <button onclick="closeEditHTD()">Close</button>
+</header>
+</center>
+
+    <p>Order your assignments, double click it to edit it</p>
+
+</body> 
+
 <header id="tableInIndex">
 </header>
 
 <button onclick="getAndSet();">New Table</button>
-<a href="edit.html"><button>Edit</button>
 
 </body>
 
+<p id="trash" style="width:100px; height:100px">
+<svg id="trash" xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi red bi-trash" viewBox="0 0 16 16">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+</svg>
+</p>
+
 
 <script>
-
-
-
-	var text;
+var text;
 var selectedText;
 var next = document.getElementById("next");
 var inputAssignments = document.getElementById("inputAssignments");
@@ -51,6 +119,53 @@ var blue2 = document.getElementById("blue2");
 
 var mulAsi = document.getElementById("mulAsi");
 var oneAsi = document.getElementById("oneAsi");
+
+window.addEventListener('load', (event) => {
+      var currentlyDragged;
+
+    $("div").draggable({
+      drag: function(e) {
+        currentClass = $("#" + currentlyDragged).attr("class");
+        console.log(currentClass);
+
+        currentlyDragged = e.target.id;
+        console.log(currentlyDragged)
+
+        text = $(currentlyDragged).html();
+      }
+    });
+
+
+    var slectedTD;
+    var currentlyDraggedNewDiv;
+    $("td").droppable({
+      drop: function(event, ui) {
+        selectedTD = event.target.id;
+
+        $(this).removeClass();
+        var newDiv = $("<div onclick='textInput()'>"+ text +"</div>");
+        //$(newDiv).addClass($("#" + currentlyDragged).attr("data-id"));
+        $( this ).append(newDiv);
+ 
+        console.log(currentlyDragged)
+
+        $("div").draggable({
+        drag: function(e) {
+
+        currentlyDraggedNewDiv = e.target;
+        text = $(currentlyDraggedNewDiv).html();
+        console.log(currentlyDraggedNewDiv);
+
+      }
+    }); 
+        $("#" + currentlyDragged).remove();
+        $(currentlyDraggedNewDiv).remove();
+      }
+    });
+
+  });
+
+
 
 function showInputA(){
   inputAssignments.style.display = "block";
@@ -469,11 +584,6 @@ $("#tbUser").on('click', '.btnDelete', function () {
   function goBackToMain(){
     document.getElementById("editConsole").style.display = "block";
     document.getElementById("CheckSnap").style.display = "none";
-  }
-
-  function textInput(){
-   var clickedTD = event.target.innerHTML;
-    alert(clickedTD);
   }
 
    

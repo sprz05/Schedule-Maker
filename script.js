@@ -115,20 +115,21 @@ function addElement() {
     $("td").droppable({
       drop: function(event, ui) {
         selectedTD = event.target.id;
+
         $(this).removeClass();
-        var newDiv = $("<div>"+ text +"</div>");
-        $(newDiv).addClass($("#" + currentlyDragged).attr("data-id"));
+        var newDiv = $("<div onclick='textInput()'>"+ text +"</div>");
+        //$(newDiv).addClass($("#" + currentlyDragged).attr("data-id"));
         $( this ).append(newDiv);
  
         console.log(currentlyDragged)
+
         $("div").draggable({
         drag: function(e) {
-        //add text id
-        currentClass = $(currentlyDraggedNewDiv).attr("class");
-        console.log(currentClass);
+
         currentlyDraggedNewDiv = e.target;
         text = $(currentlyDraggedNewDiv).html();
         console.log(currentlyDraggedNewDiv);
+
       }
     }); 
         $("#" + currentlyDragged).remove();
@@ -221,49 +222,7 @@ function updateVal(currentEle, value) {
     });
 }
 
-//edit color
 
-var clickedDiv
-
-  $(function () {
-    $(redBg).click(function (e) {
-      $(clickedTD).removeClass();
-        $(clickedTD).addClass("red");
-        closeEditH();
-    });
-});
-
-$(function () {
-    $(blueBg).click(function (e) {
-      $(clickedTD).removeClass();
-        $(clickedTD).addClass("blue2");
-        closeEditH();
-    });
-});
-
-
-$(function () {
-    $(purpleBg).click(function (e) {
-      $(clickedTD).removeClass();
-        $(clickedTD).addClass("blue");
-        closeEditH();
-    });
-});
-
-$(function () {
-    $(greenBg).click(function (e) {
-      $(clickedTD).removeClass();
-        $(clickedTD).addClass("green");
-        closeEditH();
-    });
-});
-//delete
-
- $(function () {
-    $("#del").click(function (e) {
-          $(clickedTD).html(" ").css("background-color", "white");
-    });
-});
 
 function updateVal(currentEle, value) {
     $(currentEle).html('<input class="thVal" type="text" value="' + " " + '" />');
@@ -453,7 +412,7 @@ $(function () {
 });
 
 
-function hideAllExcpetScreenShoot(){ 
+function showSnap(){ 
   document.getElementById("saveSchedTxt").style.display ="block";
   document.getElementById("screenshotTxt").style.display = "block";
 }
@@ -466,10 +425,30 @@ $("#tbUser").on('click', '.btnDelete', function () {
 });
 
 
-  
 
-  $( "table" ).hover(
-  function show() {
-    document.getElementsByClassName("delTr").style.display = "block";
+  function checkSnap(){
+    document.getElementById("editConsole").style.display = "none";
+    document.getElementById("CheckSnap").style.display = "block";
   }
-);
+
+  function goBackToMain(){
+    document.getElementById("editConsole").style.display = "block";
+    document.getElementById("CheckSnap").style.display = "none";
+  }
+
+  function textInput(){
+   var clickedTD = event.target.innerHTML;
+    alert(clickedTD);
+  }
+
+   
+
+
+function set(){
+ localStorage.setItem('cell1Store', document.getElementById("cell1").innerHTML);
+ localStorage.setItem('Table', document.getElementById("photo").innerHTML);
+ getAndSet();
+}
+
+
+
