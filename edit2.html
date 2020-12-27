@@ -27,6 +27,10 @@
 "https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"> 
   </script> 
 
+  <script src="localStorage.js"></script>
+
+
+
 
   </head>
 
@@ -69,37 +73,31 @@
 
 <body id="container">    
 
-<header id="inputAssignments"> 
-<center>   
+<header id="inputAssignments" style="display:none">    
 <h1 id="mulAsi">Input Your Assignments for the week:</h1>
 <h1 style="display:none" id="oneAsi">Input Your Assignment:</h1>
 
-    <input id="input" placeholder="1-3 math worksheet">
+    <input id="input" type="text" value="text">
     <button class="btn btn-primary" id="blue" onclick="addElement()" >Add Assignment</button> 
 
     <button style="display:none" id="blue2" onclick="addElement();" >input</button> 
 
     <h1 height="30px"></h1>
 
-  <button id ="next" onclick="showSchedule()">Next</button>
   <button class="btn btn-danger" id="closeAddAssignmentBtn" onclick="closeInputA();" style="display:none">Close</button>
-</center>
 </header>
 
-<header id="schedule" style="display:none">
+<header id="schedule">
 
 
 <header id="editConsole">
   <button class="btn btn-danger" id="delBtn" style="display:none">Delete</button>
   <button class="column btn btn-info" style="width:100px; height: 100px;" id="addAssignmentBtn" onclick="showInputA();">Add Assignment</button>
 <button class="column btn btn-success" id="doneBtn" style="color: white; width:100px; height: 100px;" onclick="set(); checkSnap()">Done</button>
-<p class="column" id="trash" style="width:100px; height:100px; background-color:red; text-align: center; color:white">
-Drag assignments here to delete them
-</p>
 </header>
 
 
-<div style="height:100px;"></div>
+<body style="height:100px;"></body>
 
 <center>
 <header id="editHeader" style="display:none">
@@ -129,96 +127,16 @@ Drag assignments here to delete them
 </header>
 </center>
 
-    <p>Now make your schedule for the week!</p>
-    <ul>
-      <li>Order your assignments by draging them to the time you'd like to do them.</li>
-      <li>Double click the time cells to edit the time</li>
-      <li>Double click your assignment to edit it, drag it to the delete square to delete</li>
-    </ul>
+    <p>Order your assignments, double click anything to edit it</p>
 
 </body> 
 
-<center>
-<header id="photo"> 
 
-<table border="1" style="border-color: grey;" id="tbUser">
-<tr>
-<th width=100>Time</th>
-    <th width=100>Monday</th>
-    <th width=100>Tuesday</th>
-    <th width=100>Wednesday</th>
-    <th width=100>Thursday</th>
-    <th width=100>Friday</th>
-  </tr>
-    <tr>
-<th class="th" width=100>12:00 PM</th>
-    <td width=100 id="cell1" value="cool"></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td class="delTr"><button class="btnDelete">Delete</button></td>
-  </tr>
-  <tr>
-    <th class="th" width=100>1:00 PM</th>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td class="delTr"><button class="btnDelete">Delete</button></td>
-  </tr>
-  <tr>
-    <th class="th" width=100>2:00 PM</th>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td class="delTr"><button class="btnDelete">Delete</button></td>
-  </tr>
-  <tr>
-    <th class="th" width=100>3:00 PM</th>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td class="delTr"><button class="btnDelete">Delete</button></td>
-  </tr>
-  <tr>
-    <th  class="th" width=100>4:00 PM</th>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td class="delTr"><button class="btnDelete">Delete</button></td>
-  </tr>
-  <tr>
-    <th class="th" width=100>5:00 PM</th>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td class="delTr"><button class="btnDelete">Delete</button></td>
-  </tr>
-  <tr>
-    <th class="th" width=100>6:00 PM</th>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td width=100></td>
-    <td class="delTr"><button class="btnDelete">Delete</button></td>
-  </tr>
-</table>
+
+<header id="tableInIndex">
 </header>
 
-</center>
-
-<center><button onclick="addTr()" class="btn btn-info">Add row</button></center>
+<button onclick="addTr()">Add row</button>
 
 
 </header>
@@ -227,6 +145,15 @@ Drag assignments here to delete them
      <script src="script.js"></script>
 
 </header>
+
+
+<p id="trash" style="width:100px; height:100px">
+<svg id="trash" xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi red bi-trash" viewBox="0 0 16 16">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+</svg>
+</p>
+
 
 
 

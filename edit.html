@@ -1,11 +1,15 @@
 <html>
 <head>
   <title></title>
-  <script src="localStorage.js"></script>
 
       <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     
     <link href="style.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -16,8 +20,17 @@
 "https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"> 
   </script> 
 
+<style>
+.btnDelete{
+	display:none;
+}
+</style>
+
+
+  <script src="localStorage.js"></script>
+
 </head>
-<body style="font-family: 'Roboto', sans-serif;">
+<body>
 
 	<body id="container">    
 
@@ -45,8 +58,8 @@
 
 <header id="editConsole">
   <button  id="delBtn" style="display:none">Delete</button>
-  <button class="column" style="width:100px; height: 100px; background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%);" id="addAssignmentBtn" onclick="showInputA();">Add Assignment</button>
-<button class="column" style="width:100px; height: 100px; background: linear-gradient(87deg, #2dce89 0, #2dcecc 100%);" onclick="set()">Save</button>
+  <button class="column btn btn-primary" style="width:100px; height: 100px;" id="addAssignmentBtn" onclick="showInputA();">Add Assignment</button>
+<button class="column btn btn-success" style="width:100px; height: 100px;" onclick="set()">Save</button>
 </header>
 
 
@@ -84,513 +97,67 @@
 
 </body> 
 
+<script>	
+	$("#tbUser").on('click', '.btnDelete', function () {
+    $(this).closest('tr').remove();
+});
+
+</script>
+
 <header id="tableInIndex">
 </header>
 
 
 </body>
 
-<button onclick="addTr()">Add row</button>
+<center><button onclick="addTr()" class="btn btn-info">Add row</button></center>
 
-<p id="trash" style="width:100px; height:100px">
-<svg id="trash" xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi red bi-trash" viewBox="0 0 16 16">
-  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-</svg>
+
+<p id="trash" style="width:100px; height:100px; background-color:red; text-align: center; color:white">
+Drag assignments here to delete them
 </p>
 
 
 <script>
-var text;
-var selectedText;
-var next = document.getElementById("next");
-var inputAssignments = document.getElementById("inputAssignments");
-var addAssignmentBtn = document.getElementById("addAssignmentBtn");
-var closeAssignmentBtn = document.getElementById("closeAssignmentBtn");
-var schedule = document.getElementById("schedule");
-var closeAddAssignmentBtn = document.getElementById("closeAddAssignmentBtn");
+	window.addEventListener('load', (event) => {
+  getAndSet();
+
+});
+
+function getAndSet(){
+  var table = localStorage.getItem('Table');
+  console.log(table);
+
+  document.getElementById("tableInIndex").innerHTML = table;
 
 
-var currentlyDragged;
- var currentClass;
+}
+ function delTr() {
+ 	var closeDelBtn = event.target;
+    $(closeDelBtn).closest('tr').remove();
+}
+</script>
 
-var blue = document.getElementById("blue");
-var blue2 = document.getElementById("blue2");
 
-var mulAsi = document.getElementById("mulAsi");
-var oneAsi = document.getElementById("oneAsi");
+<script type="text/javascript" src="edit.js"></script>
 
-window.addEventListener('load', (event) => {
-      var currentlyDragged;
-
-    $("div").draggable({
-      drag: function(e) {
-        currentClass = $("#" + currentlyDragged).attr("class");
-        console.log(currentClass);
-
-        currentlyDragged = e.target.id;
-        console.log(currentlyDragged)
-
-        text = $(currentlyDragged).html();
-      }
+<script>
+  $("th").dblclick(function (e) {
+       alert("wow")
     });
 
 
-    var slectedTD;
-    var currentlyDraggedNewDiv;
-    $("td").droppable({
-      drop: function(event, ui) {
-        selectedTD = event.target.id;
-
-        $(this).removeClass();
-        var newDiv = $("<div>"+ text +"</div>");
-        //$(newDiv).addClass($("#" + currentlyDragged).attr("data-id"));
-        $( this ).append(newDiv);
- 
-        console.log(currentlyDragged)
-
-        $("div").draggable({
-        drag: function(e) {
-
-        currentlyDraggedNewDiv = e.target;
-        text = $(currentlyDraggedNewDiv).html();
-        console.log(currentlyDraggedNewDiv);
-
+function updateVal3(currentEle, value) {
+  $(currentEle).html('<input class="thVal" type="text" value="' + value + '" />');
+  $(".thVal").focus();
+  $(".thVal").keyup(function (event) {
+      if (event.keyCode == 13) {
+          $(currentEle).html($(".thVal").val().trim());
       }
-    }); 
-        $("#" + currentlyDragged).remove();
-        $(currentlyDraggedNewDiv).remove();
-      }
-    });
-
   });
 
-
-
-function showInputA(){
-  inputAssignments.style.display = "block";
-  
-  blue.style.display = "none";
-  mulAsi.style.display = "none";
-
-  oneAsi.style.display = "block";
-  blue2.style.display = "block";
-  closeAddAssignmentBtn.style.display = "block";
-
-  next.style.display = "none";
-  addAssignmentBtn.style.display = "none";
-}
-
-
-function closeInputA(){
-    inputAssignments.style.display = "none";
-}
-
-function closeInputA(){
-  inputAssignments.style.display = "none";
-  addAssignmentBtn.style.display = "block";
-}
-
-function showSchedule(){
-  inputAssignments.style.display = "none";
-  schedule.style.display = "block";
-}
-
-
-
-
-
-var elementCounter = 0;
-function addElement() {
-  var classN = event.target.id;
-  text = document.getElementById("input").value;
-  // create a new div element and give it a unique id
-  var newDiv = document.createElement("div");
-  newDiv.id = 'temp' + elementCounter;
-  newDiv.classList = "div";
-  elementCounter++
-  if (classN == "blue") {
-    newDiv.classList = "blue"
-    newDiv.setAttribute("data-id", "blue"); 
-  } /*else if (classN == "red") {
-    newDiv.classList = "red"
-    newDiv.setAttribute("data-id", "red");
-  } else if (classN == "green") {
-    newDiv.classList = "green"
-    newDiv.setAttribute("data-id", "green");
-  } else if (classN == "blue2") {
-    newDiv.classList = "blue2"
-    newDiv.setAttribute("data-id", "blue2");
-  }*/
-  // and give it some content
-  var newContent = document.createTextNode(text);
-
-  // add the text node to the newly created div
-  newDiv.appendChild(newContent);
-  
-  // add the newly created element and its content into the DOM
-  var currentDiv = document.getElementById("div1");
-  document.body.insertBefore(newDiv, currentDiv);
-
-  $(function() {
-
-    var currentlyDragged;
-
-/*
-    $(function() {
-      $("div").dblclick(function(e) {
-        $("#editHeader").css("display", "block");
-        clickedTD = event.target;
-        $(clickedTD).addClass("selected");
-      });
-    });
-*/
-
-    $("[id^='temp']").draggable({
-      drag: function(e) {
-        currentClass = $("#" + currentlyDragged).attr("class");
-        console.log(currentClass);
-
-        currentlyDragged = e.target.id;
-        console.log(currentlyDragged)
-
-        selectedText = event.target;
-        text = $(selectedText).html();
-      }
-    });
-
-
-    var slectedTD;
-    var currentlyDraggedNewDiv;
-    $("td").droppable({
-      drop: function(event, ui) {
-        selectedTD = event.target.id;
-
-        $(this).removeClass();
-        var newDiv = $("<div>"+ text +"</div>");
-        //$(newDiv).addClass($("#" + currentlyDragged).attr("data-id"));
-        $( this ).append(newDiv);
- 
-        console.log(currentlyDragged)
-
-        $("div").draggable({
-        drag: function(e) {
-
-        currentlyDraggedNewDiv = e.target;
-        text = $(currentlyDraggedNewDiv).html();
-        console.log(currentlyDraggedNewDiv);
-
-      }
-    }); 
-        $("#" + currentlyDragged).remove();
-        $(currentlyDraggedNewDiv).remove();
-      }
-    });
-
+  $(document).click(function () { // you can use $('html')
+        $(currentEle).html($(".thVal").val().trim());
   });
-
-  document.getElementById("input").value = " ";
-
-
-}
-
-var clickedTH;
-
-  $(function () {
-    $(".th").dblclick(function (e) {
-        clickedTH = event.target; 
-        e.stopPropagation();
-        var currentEle = $(clickedTH);
-        var value = $(clickedTH).html();
-        updateVal2(currentEle, value);
-    });
-});
-
-
-var tdCounter = 0;
-function addTr() {
-  // create a new div element and give it a unique id
-  var newTr = 
-  $("<tr><th class='th' width=100>0:00 PM</th><td width='100'></td><td width='100'></td><td width='100'></td><td width='100'></td><td width='100'></td><td class='delTr'><button class='btnDelete'>Delete</button></td></tr>")
-  newTr.id = 'td' + tdCounter;
-  newTr.classList = "div";
-  tdCounter++
-
-  // add the newly created element and its content into the table
-  $("table").append(newTr)
-  $(".th").dblclick(function (e) {
-        clickedTH = event.target; 
-        e.stopPropagation();
-        var currentEle = $(clickedTH);
-        var value = $(clickedTH).html();
-        updateVal2(currentEle, value);
-    });
-}
-
-
-
-
-
-
-var editTxt = document.getElementById("editTxt");
-var redBg = document.getElementById("redBg");
-var del = document.getElementById("del");
-var clickedTD;
-
-
-
-var div = document.getElementsByTagName("div");
-function closeEditH(){
-  $("#editHeader").css("display","none");
-  $(div).removeClass("selected"); 
-}
-
-//edit text
-
-  $(function () {
-    $(editTxt).click(function (e) {
-        e.stopPropagation();
-        var currentEle = $(clickedTD);
-        var value = $(clickedTD).html();
-        updateVal(currentEle, value);
-    });
-});
-
-function updateVal(currentEle, value) {
-    $(currentEle).html('<input class="thVal" type="text" value="' +  text  + '" />');
-    $(".thVal").focus();
-    $(".thVal").keyup(function (event) {
-        if (event.keyCode == 13) {
-            $(currentEle).html($(".thVal").val());
-            closeEditH();
-        }
-    });
-
-    $(document).click(function () {
-            $(currentEle).html($(".thVal").val());
-            closeEditH();
-    });
-}
-
-
-
-function updateVal(currentEle, value) {
-    $(currentEle).html('<input class="thVal" type="text" value="' + " " + '" />');
-    $(".thVal").focus();
-    $(".thVal").keyup(function (event) {
-        if (event.keyCode == 13) {
-            $(currentEle).html($(".thVal").val());
-             $("#editHeader").css("display","none");
-        }
-    });
-
-    $(document).click(function () {
-            $(currentEle).html($(".thVal").val());
-            $("#editHeader").css("display","none");
-    });
-
-
-
-}
-
-
-  //"trash can"
-
-
-  $(function() {
-    
-    var trash = document.getElementById('trash');
-
-    $("#trash").droppable({
-      drop: function( event, ui ) {
-      for (let i = 0; i < ui.draggable.length; i++) {
-        ui.draggable[i].remove();
-      }
-      
-      }
-    });
-  });
-
-
-
-
-
-function updateVal2(currentEle, value) {
-    $(currentEle).html('<input class="thVal" type="text" value="' +  value  + '" />');
-    $(".thVal").focus();
-    $(".thVal").keyup(function (event) {
-        if (event.keyCode == 13) {
-            $(currentEle).html($(".thVal").val());
-        }
-    });
-
-    $(document).click(function () {
-            $(currentEle).html($(".thVal").val());
-    });
-}
-
-
-
-var takeScreenShot = function() {
-    html2canvas(document.getElementById("container"), {
-        onrendered: function (canvas) {
-            var tempcanvas=document.createElement('canvas');
-            tempcanvas.width=350;
-            tempcanvas.height=350;
-            var context=tempcanvas.getContext('2d');
-            context.drawImage(canvas,112,0,288,200,0,0,350,350);
-            var link=document.createElement("a");
-            link.href=tempcanvas.toDataURL('image/jpg');   //function blocks CORS
-            link.download = 'screenshot.jpg';
-            link.click();
-        }
-    });
-}
-
-//how can we save it in local storage??????
-var htmlContents = document.getElementById("output");
-
-function save(){
-localStorage.setItem('mySchedule', JSON.stringify(htmlContents ));
-}
-
-function showImgSchedule(){
-localStorage.getItem('mySchedule');
-console.log("showingSchedule")
-}
-//how can we save it in local storage??????
-
-
-
-
-
- /* var td = document.getElementsByTagName('td');
-
-  $( "td" ).hover(
-  function() {
-    $( this ).append( $( "<a class='button'> Delete</a>" ) );
-
-    function dump() {
-      $(this).parent().html("").removeClass();
-    }
-$( "a" ).on( "click", dump );
-
-
-  }, function() {
-    $( this ).find( "a" ).last().remove();
-  }
-);*/
-
-
-var doubleClickedTD;
-
-$(function () {
-    $("td").dblclick(function (e) {
-      doubleClickedTD = event.target;
-        $("#editHeader").css("display","none");
-        $("#editTDHeader").css("display","block");       
-    });
-});
-
-
-function closeEditHTD(){
-  $("#editTDHeader").css("display","none");
-}
-
-//edit text
-
-
-  $(function () {
-    $(editTDTxt).click(function (e) {
-        e.stopPropagation();
-        var currentEle = $(doubleClickedTD);
-        var value = $(doubleClickedTD).html();
-        updateVal(currentEle, value);
-    });
-});
-
-function updateVal(currentEle, value) {
-    $(currentEle).html('<input class="thVal" type="text" value="' +  text  + '" />');
-    $(".thVal").focus();
-    $(".thVal").keyup(function (event) {
-        if (event.keyCode == 13) {
-            $(currentEle).html($(".thVal").val());
-            closeEditHTD();
-        }
-    });
-
-    $(document).click(function () {
-            $(currentEle).html($(".thVal").val());
-            closeEditHTD();
-    });
-}
-
-//edit color
-
-
-  $(function () {
-    $(redBgTD).click(function (e) {
-      $(doubleClickedTD).removeClass();
-        $(doubleClickedTD).addClass("redBg");
-        closeEditHTD();
-    });
-});
-
-$(function () {
-    $(blueBgTD).click(function (e) {
-      $(doubleClickedTD).removeClass();
-        $(doubleClickedTD).addClass("blue2Bg");
-        closeEditHTD();
-    });
-});
-
-
-$(function () {
-    $(purpleBgTD).click(function (e) {
-      $(doubleClickedTD).removeClass();
-        $(doubleClickedTD).addClass("blueBg");
-        closeEditHTD();
-    });
-});
-
-$(function () {
-    $(greenBgTD).click(function (e) {
-      $(doubleClickedTD).removeClass();
-        $(doubleClickedTD).addClass("greenBg");
-        closeEditHTD();
-    });
-});
-
-
-function showSnap(){ 
-  document.getElementById("saveSchedTxt").style.display ="block";
-  document.getElementById("screenshotTxt").style.display = "block";
-}
-
-
-
-
-$("#tbUser").on('click', '.btnDelete', function () {
-    $(this).closest('tr').remove();
-});
-
-
-
-  function checkSnap(){
-    document.getElementById("editConsole").style.display = "none";
-    document.getElementById("CheckSnap").style.display = "block";
-  }
-
-  function goBackToMain(){
-    document.getElementById("editConsole").style.display = "block";
-    document.getElementById("CheckSnap").style.display = "none";
-  }
-
-   
-
-
-function set(){
- localStorage.setItem('Table', document.getElementById("tableInIndex").innerHTML);
- getAndSet();
 }
 </script>

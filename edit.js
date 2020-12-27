@@ -17,6 +17,9 @@ var blue2 = document.getElementById("blue2");
 var mulAsi = document.getElementById("mulAsi");
 var oneAsi = document.getElementById("oneAsi");
 
+
+
+
 function showInputA(){
   inputAssignments.style.display = "block";
   
@@ -133,7 +136,6 @@ function addElement() {
       }
     }); 
         $("#" + currentlyDragged).remove();
-        $(currentlyDraggedNewDiv).remove();
       }
     });
 
@@ -161,24 +163,23 @@ var tdCounter = 0;
 function addTr() {
   // create a new div element and give it a unique id
   var newTr = 
-  $("<tr><th class='th' width=100>0:00 PM</th><td width='100'></td><td width='100'></td><td width='100'></td><td width='100'></td><td width='100'></td><td class='delTr'><button class='btnDelete'>Delete</button></td></tr>")
+  $("<tr><th class='th' width=100>0:00 PM</th><td width='100'></td><td width='100'></td><td width='100'></td><td width='100'></td><td width='100'></td><td class='delTr' onclick='delTr()'><button class='editDel'>Delete</button></td></tr>")
   newTr.id = 'td' + tdCounter;
   newTr.classList = "div";
   tdCounter++
 
   // add the newly created element and its content into the table
   $("table").append(newTr)
-  $(".th").dblclick(function (e) {
+
+    $(".th").dblclick(function (e) {
         clickedTH = event.target; 
         e.stopPropagation();
         var currentEle = $(clickedTH);
         var value = $(clickedTH).html();
         updateVal2(currentEle, value);
     });
+ // alert("you just added a row to your table double click the 0:00 to edit the time")
 }
-
-
-
 
 
 
@@ -263,21 +264,6 @@ function updateVal(currentEle, value) {
 
 
 
-
-
-function updateVal2(currentEle, value) {
-    $(currentEle).html('<input class="thVal" type="text" />');
-    $(".thVal").focus();
-    $(".thVal").keyup(function (event) {
-        if (event.keyCode == 13) {
-            $(currentEle).html($(".thVal").val());
-        }
-    });
-
-    $(document).click(function () {
-            $(currentEle).html($(".thVal").val());
-    });
-}
 
 
 
@@ -412,40 +398,97 @@ $(function () {
 });
 
 
-var deleteBtns = document.getElementsByClassName("delTr");
-
 function showSnap(){ 
-  document.getElementById("screenShotHeader").style.display ="block";
+  document.getElementById("saveSchedTxt").style.display ="block";
+  document.getElementById("screenshotTxt").style.display = "block";
 }
 
 
-
-
-$("#tbUser").on('click', '.btnDelete', function () {
-    $(this).closest('tr').remove();
-});
-
-
-
   function checkSnap(){
-    $(deleteBtns).removeClass();
-    $(deleteBtns).addClass("hideDelBtns");
     document.getElementById("editConsole").style.display = "none";
     document.getElementById("CheckSnap").style.display = "block";
   }
 
-  function goBackToMain(){ screenShotHeader
+  function goBackToMain(){
     document.getElementById("editConsole").style.display = "block";
     document.getElementById("CheckSnap").style.display = "none";
-    document.getElementById("screenShotHeader").style.display = "none";
   }
 
    
 
 
 function set(){
- localStorage.setItem('Table', document.getElementById("photo").innerHTML);
+ localStorage.setItem('Table', document.getElementById("tableInIndex").innerHTML);
+ getAndSet();
+}
+
+window.addEventListener('load', (event) => {
+
+      var currentlyDragged;
+
+    $("div").draggable({
+      drag: function(e) {
+
+        currentlyDragged = e.target;
+        newDiv = currentlyDragged;
+        console.log(currentlyDragged)
+
+        text = $(currentlyDragged).html();
+
+      }
+    });
+
+
+
+    var slectedTD;
+    var currentlyDraggedNewDiv;
+    $("td").droppable({
+      drop: function(event, ui) {
+        selectedTD = event.target.id;
+
+
+        var newDiv = $("<div>"+ text +"</div>");
+
+
+        $( this ).append(newDiv);
+ 
+        console.log(currentlyDragged)
+
+        $("div").draggable({
+        drag: function(e) {
+
+        currentlyDraggedNewDiv = e.target;
+        text = $(currentlyDraggedNewDiv).html();
+
+
+
+
+        console.log(currentlyDraggedNewDiv);
+
+      }
+    }); 
+        $(currentlyDraggedNewDiv).remove();
+      }
+    });
+
+  });
+
+
+
+function updateVal2(currentEle, value) {
+    $(currentEle).html('<input class="thVal" type="text" value="' +  value  + '" />');
+    $(".thVal").focus();
+    $(".thVal").keyup(function (event) {
+        if (event.keyCode == 13) {
+            $(currentEle).html($(".thVal").val());
+        }
+    });
+
+    $(document).click(function () {
+            $(currentEle).html($(".thVal").val());
+    });
 }
 
 
 
+    
